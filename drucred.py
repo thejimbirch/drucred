@@ -23,7 +23,7 @@ def get_cache_ids_path(project_slug):
 HEADERS = {
     "Accept": "application/json",
     "Accept-Encoding": "gzip",
-    "User-Agent": "drucred/1.0 (+https://kanopi.com; jim@kanopi.com)"
+    "User-Agent": "drucred/1.0 (+https://github.com/thejimbirch/drucred)"
 }
 
 def fetch_page(url, retries=5):
@@ -129,8 +129,8 @@ def extract_credit(issues):
 
     return individual_counter, organization_counter, org_to_people
 
-def render_mermaid_bar_chart(title, data_counter, top_n=10):
-    lines = [f"%% {title}", "bar", f"    title {title}"]
+def render_mermaid_pie_chart(title, data_counter, top_n=10):
+    lines = [f"%% {title}", "pie"]
     for name, count in data_counter.most_common(top_n):
         lines.append(f'    "{name}": {count}')
     return "\n".join(lines)
@@ -176,7 +176,7 @@ def main(project_nid, project_title, project_slug, force_refresh=False, top_n=10
 
     def chart(title, counter, top_n):
         lines.append("```mermaid")
-        lines.append(render_mermaid_bar_chart(title, counter, top_n=top_n))
+        lines.append(render_mermaid_pie_chart(title, counter, top_n=top_n))
         lines.append("```")
         lines.append("")
 
