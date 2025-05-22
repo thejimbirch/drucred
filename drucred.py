@@ -159,7 +159,9 @@ def main(project_nid, project_title, project_slug, force_refresh=False, top_n=10
     lines = []
     lines.append(f"# {project_title} Contributor Credit Report")
     lines.append(f"- Total fixed issues: {len(issues)}")
-    lines.append(f"- Issues with credit data: {num_with_credit}\n")
+    lines.append(f"- Issues with credit data: {num_with_credit}")
+    lines.append(f"- Total individual contributors: {len(individual_credit)}")
+    lines.append(f"- Total credited organizations: {len(org_credit)}\n")
 
     lines.append("## 📑 Table of Contents")
     lines.append("- [Top Individual Contributors](#-top-individual-contributors)")
@@ -200,6 +202,11 @@ def main(project_nid, project_title, project_slug, force_refresh=False, top_n=10
     for name, count in individual_credit.most_common():
         lines.append(f"- {name}: {count}")
     lines.append("")
+
+    # Add generated-by text at the bottom
+    lines.append("---\n")
+    lines.append("Generated using [thejimbirch/drucred](https://github.com/thejimbirch/drucred).\n")
+
 
     # Write to markdown file
     os.makedirs("output", exist_ok=True)
