@@ -160,14 +160,14 @@ def main(project_nid, project_title, project_slug, force_refresh=False, top_n=10
     lines.append(f"# {project_title} Contributor Credit Report")
     lines.append(f"- Total fixed issues: {len(issues)}")
     lines.append(f"- Issues with credit data: {num_with_credit}")
-    lines.append(f"- Total individual contributors: {len(individual_credit)}")
+    lines.append(f"- Total individual code contributors: {len(individual_credit)}")
     lines.append(f"- Total credited organizations: {len(org_credit)}\n")
 
     lines.append("## 📑 Table of Contents")
-    lines.append("- [Top Individual Contributors](#-top-individual-contributors)")
+    lines.append("- [Top Individual Code Contributors](#-top-individual-code-contributors)")
     lines.append("- [Organizations Credited](#-organizations-credited)")
-    lines.append("- [All Contributors by Organization](#-all-contributors-by-organization)")
-    lines.append("- [All Contributors](#-all-contributors)")
+    lines.append("- [All Code Contributors by Organization](#-all-code-contributors-by-organization)")
+    lines.append("- [All Code Contributors](#-all-code-contributors)")
     lines.append("")
 
     def section(title, counter, top_n):
@@ -182,15 +182,15 @@ def main(project_nid, project_title, project_slug, force_refresh=False, top_n=10
         lines.append("```")
         lines.append("")
 
-    lines.append("## 👤 Top Individual Contributors")
-    section("Top Contributors", individual_credit, top_n)
-    chart("Top Contributors", individual_credit, top_n)
+    lines.append("## 👤 Top Individual Code Contributors")
+    section("Top Code Contributors", individual_credit, top_n)
+    chart("Top Code Contributors", individual_credit, top_n)
 
     lines.append("## 🏢 Organizations Credited")
     section("Top Credited Organizations", org_credit, top_n)
-    chart("Top Organization Contributors", org_credit, top_n)
+    chart("Top Credited Organizations", org_credit, top_n)
 
-    lines.append("## 🏷️ All Contributors by Organization")
+    lines.append("## 🏷️ All Code Contributors by Organization")
     for org in sorted(org_to_people.keys()):
         people = org_to_people[org].most_common()
         lines.append(f"### {org}")
@@ -198,7 +198,7 @@ def main(project_nid, project_title, project_slug, force_refresh=False, top_n=10
             lines.append(f"- {person}: {count}")
         lines.append("")
 
-    lines.append("## 🌐 All Contributors")
+    lines.append("## 🌐 All Code Contributors")
     for name, count in individual_credit.most_common():
         lines.append(f"- {name}: {count}")
     lines.append("")
